@@ -2,18 +2,21 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
+import os
+import re
+
  
  
 options = Options()
-options.add_argument("--disable-notifications")  # 取消所有的alert彈出視窗
+options.add_argument("--disable-notifications")
  
-browser = webdriver.Chrome(
-    ChromeDriverManager().install(), chrome_options=options)
- 
-browser.get("https://2023.ieee-iscc.org/")
-    
- # 定位搜尋框
-element=browser.find_element_by_class_name("gLFyf.gsfi")
-# 傳入字串
-element.send_keys("Selenium Python")
-#soup = BeautifulSoup(browser.page_source, "html.parser")
+chrome = webdriver.Chrome('./chromedriver', chrome_options=options)
+chrome.get("https://2023.ieee-iscc.org/")
+chrome.get_screenshot_as_file("2330.png")
+
+soup = BeautifulSoup(chrome.page_source, 'html.parser')
+
+#print(soup.prettify())
+
+print(soup.find_all(string=re.compile("^2023")))
+os.system("pause")
