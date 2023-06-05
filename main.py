@@ -1,98 +1,83 @@
-import asyncio
+
 from pyppeteer import launch
 from cnocr import CnOcr
-
+import cv2
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from PIL import Image
+import time
+from io import BytesIO
+import pytesseract
 
-def capture_long_website_screenshot(url):
-    # Set up the Selenium webdriver
-    driver = webdriver.Chrome()  # Change to the appropriate driver for your browser
-    driver.get(url)
+chrome_options = Options()
+chrome_options.add_argument("--start-maximized")  # Maximize the browser window
+chrome_options.add_argument("--disable-infobars")  # Disable the info bar
+chrome_options.add_argument("--disable-extensions")  # Disable extensions
+chrome_options.add_argument("--disable-gpu")  # Disable the GPU
+chrome_options.add_argument("--disable-dev-shm-usage")  # Disable the DevShmUsage
+chrome_options.add_argument("--no-sandbox")  # Disable the sandbox
+chrome_options.add_argument("--headless")  # Run Chrome in headless mode (without opening a window)
+#chrome_options.add_argument("--force-device-scale-factor=1")  # Set the zoom level to 150%
+chrome_options.add_argument("--window-size=1920,1080")
 
-    # Get the total height of the webpage
-    total_height = driver.execute_script("return document.documentElement.scrollHeight")
+driver = webdriver.Chrome(options=chrome_options)
+driver.get("https://www.sigapp.org/sac/sac2023/")  # Replace with the desired website URL
 
-    # Set the viewport dimensions
-    viewport_width = driver.execute_script("return document.documentElement.clientWidth")
-    viewport_height = driver.execute_script("return window.innerHeight")
+# Get the total height of the page
+total_height = driver.execute_script("return document.body.scrollHeight")
 
-    # Calculate the number of scrolls needed
-    num_scrolls = (total_height // viewport_height) + 1
+# Set the window size to the total height
+driver.set_window_size(1920, total_height)
 
-    # Create a new image to store the long screenshot
-    image = Image.new('RGB', (viewport_width, total_height))
+# Take a screenshot of the visible area
+screenshot = driver.get_screenshot_as_png()
+image = Image.open(BytesIO(screenshot))
+image.save("screenshot_0.png")
 
-    # Capture and stitch screenshots while scrolling the webpage
-    scroll_height = 0
-    for _ in range(num_scrolls):
-        driver.save_screenshot("screenshot.png")
+# # Scroll down the page and capture additional screenshots
+# scroll_height = 1080  # Adjust this value based on your desired scrolling increment
+# current_height = 1080
+# counter=1
+# while current_height < total_height:
+#     driver.execute_script(f"window.scrollTo(0, {current_height});")
+#     screenshot = driver.get_screenshot_as_png()
+#     image = Image.open(BytesIO(screenshot))
+#     image.save(f"screenshot_{counter}.png")
+#     current_height += scroll_height
+#     counter+=1
 
-        screenshot = Image.open("screenshot.png")
-        image.paste(screenshot, (0, scroll_height))
+# Close the browser
+driver.quit()
 
-        driver.execute_script(f"window.scrollTo(0, {scroll_height + viewport_height})")
-        scroll_height += viewport_height
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+def recognize_text_with_coordinates(image_path):
+    image = Image.open(image_path)
+    result = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
 
-    # Crop the image to the exact height of the webpage
-    image = image.crop((0, 0, viewport_width, total_height))
+    for i, text in enumerate(result['text']):
+        if text and text.isalnum():
+            left = result['left'][i]
+            top = result['top'][i]
+            width = result['width'][i]
+            height = result['height'][i]
+            print(f"Text: {text} (X: {left}, Y: {top}, Width: {width}, Height: {height})")
+            if 
 
-    # Save the final long screenshot
-    image.save('long_website_screenshot.png')
-
-    # Close the web driver
-    driver.quit()
-
-# Call the function and provide the URL of the website you want to capture
-url = "https://www.example.com"
-capture_long_website_screenshot(url)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# async def screenshot_full_page(url):
-#     # 啟動瀏覽器
-#     browser = await launch()
-#     page = await browser.newPage()
-#     await page.goto(url)
-
-#     # 取得網頁的完整高度
-#     height = await page.evaluate('() => document.documentElement.scrollHeight')
-
-#     # 設置瀏覽器視窗大小以容納整個頁面
-#     await page.setViewport({'width': 1920, 'height': height})
-
-#     # 生成長截圖
-#     screenshot = await page.screenshot()
-    
-#     # 關閉瀏覽器
-#     await browser.close()
-
-#     return screenshot
-
-# # 執行截圖
-# url = 'https://2023.ieee-iscc.org/'
-# loop = asyncio.get_event_loop()
-# screenshot = loop.run_until_complete(screenshot_full_page(url))
-
-# # 儲存截圖
-# with open('screenshot.png', 'wb') as f:
-#     f.write(screenshot)
+image_path = 'screenshot_0.png'  # 替換為你要辨識的圖片檔案路徑
+recognize_text_with_coordinates(image_path)
 
 
 
-# img_fp = 'screenshot.png'
+
+
+
+
+
+
+
+
+
+
+# img_fp = 'screenshot0.png'
 # ocr = CnOcr(det_model_name='en_PP-OCRv3_det', rec_model_name='en_PP-OCRv3')
-# out = ocr.ocr(img_fp)
-
-# print(out)
+# out = ocr.ocr(gray_image)
