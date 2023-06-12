@@ -49,6 +49,8 @@ image.save("screenshot_0.png")
 # Close the browser
 driver.quit()
 
+
+textlist=["IMPORTANT","Important","important"]
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 def recognize_text_with_coordinates(image_path):
     image = Image.open(image_path)
@@ -61,10 +63,16 @@ def recognize_text_with_coordinates(image_path):
             width = result['width'][i]
             height = result['height'][i]
             print(f"Text: {text} (X: {left}, Y: {top}, Width: {width}, Height: {height})")
-            if 
+            if text in textlist:
+                y=top
+                break
 
 image_path = 'screenshot_0.png'  # 替換為你要辨識的圖片檔案路徑
 recognize_text_with_coordinates(image_path)
+
+
+
+
 
 
 
