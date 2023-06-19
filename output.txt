@@ -1,4 +1,25 @@
 ACM PPoPP,2-6,March,2024,United Kingdom,https://conf.researchr.org/home/PPoPP-2024
-USENIX FAST,27-29,may,2024,USA,https://www.usenix.org/conference/fast24
+USENIX FAST,27-29,February,2024,USA,https://www.usenix.org/conference/fast24
 ACM DAC,9-13,July,2023,USA,https://dl.acm.org/conference/dac
-IEEE HPCA,2-6,March,2024,,https://hpca-conf.org/2024/
+IEEE HPCA,2-6,March,2024,UK,https://hpca-conf.org/2024/
+IEEE/ACM MICRO,0-0,October,2023,Canada,https://microarch.org/
+ACM ASPLOS,27-1,April,2024,USA,https://dl.acm.org/conference/asplos
+USENIX ATC,10-12,July,2024,USA,https://www.usenix.org/conference/atc24
+ACM EuroSys,0-0,April,2024,Greece,https://www.eurosys.org/news/eurosys-2024
+ACM SPAA,1989-2023,,2023,Israel,https://dl.acm.org/conference/spaa
+ACM PODC,19-23,June,2023,USA,https://dl.acm.org/conference/podc
+IEEE/ACM CGO,2-6,March,2024,United Kingdom,https://conf.researchr.org/home/cgo-2024
+IEEE/ACM DATE,17-19,April,2023,Belgium,https://www.date-conference.com/
+IEEE CLUSTER,13-16,May,2024,,https://2024.ccgrid.dev/
+IEEE ICCD,6-8,June,2023,USA,https://www.iccd-conf.com/Home.html
+IEEE/ACM ICCAD,29-2,October,2023,USA,https://iccad.com/
+IEEE ICDCS,2024-24,April,2024,India,https://www.karunya.edu/dece/icdcs24/callforpapers.html
+ACM/IEEE CODES+ISSS,17-22,SEPTEMBER,2023,Germany,https://esweek.org/codes-isss/
+ACM HiPEAC,17-19,January,2024,Germany,https://www.hipeac.net/2024/munich/
+IEEE/ACM PACT,1993-2023,October,2023,India,https://dl.acm.org/conference/pact
+ACM ICS,21-23,June,2023,USA,https://dl.acm.org/conference/ics
+IEEE IPDPS,15-19,May,2023,USA,https://www.ipdps.org/
+IEEE HPDC,16-23,June,2023,United States,https://hpdc.org/
+IEEE ITC,8-13,October,2023,India,http://www.itctestweek.org/
+USENIX LISA,0-0,July,2023,United States,https://www.usenix.org/conferences
+Springer Euro-Par,2023-2023,August,2023,Cyprus,http://www.euro-par.org/

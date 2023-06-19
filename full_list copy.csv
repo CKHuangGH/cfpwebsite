@@ -1,13 +1,13 @@
-ACM,PPoPP,Computer Architecture,A,
-USENIX,FAST,Computer Architecture,A,
-ACM,DAC,Computer Architecture,A,
-IEEE,HPCA,Computer Architecture,A,
-IEEE/ACM,MICRO,Computer Architecture,A,
-IEEE,SC,Computer Architecture,A,
-ACM,ASPLOS,Computer Architecture,A,
-ACM/IEEE,ISCA,Computer Architecture,A,
-USENIX,ATC,Computer Architecture,A,
-ACM,EuroSys,Computer Architecture,A,
+ACM,PPoPP,Computer Architecture,A,ACM SIGPLAN Symposium on Principles & Practice of Parallel Programming
+USENIX,FAST,Computer Architecture,A,USENIX Conference on File and Storage Technologies
+ACM,DAC,Computer Architecture,A,Design Automation Conference
+IEEE,HPCA,Computer Architecture,A,IEEE International Symposium on High Performance Computer Architecture
+IEEE/ACM,MICRO,Computer Architecture,A,IEEE/ACM International Symposium on Microarchitecture
+IEEE,SC,Computer Architecture,A,"International Conference for High Performance Computing, Networking, Storage, and Analysis"
+ACM,ASPLOS,Computer Architecture,A,International Conference on Architectural Support for Programming Languages and Operating Systems
+ACM/IEEE,ISCA,Computer Architecture,A,International Symposium on Computer Architecture
+USENIX,ATC,Computer Architecture,A,USENIX Annual Technical Conference
+ACM,EuroSys,Computer Architecture,A,European Conference on Computer Systems
 ACM,SoCC,Computer Architecture,B,
 ACM,SPAA,Computer Architecture,B,
 ACM,PODC,Computer Architecture,B,

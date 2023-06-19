@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import requests
 import re
 from duckduckgo_search import DDGS
 from itertools import islice
@@ -30,16 +29,13 @@ country_list = [
     'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan',
     'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania',
     'Thailand', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda',
-    'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'USA', 'Uruguay', 'Uzbekistan', 'Vanuatu',
+    'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'UK', 'USA', 'Uruguay', 'Uzbekistan', 'Vanuatu',
     'Vatican City', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe']
 
 full_month_names = ["January", "February", "March", "April", "May", "June", "July", "August", 
-                    "September", "October", "November", "December",
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 
-    'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 
-    'OCTOBER', 'NOVEMBER', 'DECEMBER','january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+                    "September", "October", "November", "December", 'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 
+    'OCTOBER', 'NOVEMBER', 'DECEMBER', 'NOV']
 full_years = ["2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030"]
-full_dates = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
 
 def checkdash(text):
     pattern = r'(\d+)\D*?(&ndash;|\-)\D*?(\d+)'
@@ -75,8 +71,12 @@ with open(file_path, 'r') as file:
     for row in csv_reader:
         combinekey=str(row[0]+" "+row[1])
         conf_name=row[1]
-
-        searchkey = combinekey+" 2024"+" HOME"
+        savestartnumber=""
+        saveendnumber=""
+        savemonth=""
+        saveyear=""
+        savecountry=""
+        searchkey = combinekey+" 2024 conference/symposium home"
         print(searchkey)
         with DDGS() as ddgs:
             ddgs_gen = ddgs.text(searchkey, region='tw-tzh')
@@ -84,12 +84,6 @@ with open(file_path, 'r') as file:
                 print(r["href"])
                 savehref=r["href"]
                 query=r["href"]
-        
-        savestartnumber=""
-        saveendnumber=""
-        savemonth=""
-        saveyear=""
-        savecountry=""
 
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -118,7 +112,7 @@ with open(file_path, 'r') as file:
 
         if checkwebsite==1:
             for text in string.splitlines():
-                print(text)
+                # print(text)
                 for country in country_list:
                     index = text.find(country)
                     if index != -1 and flag_country==0:
@@ -144,11 +138,11 @@ with open(file_path, 'r') as file:
                         savestartnumber=start_number
                         saveendnumber=end_number
                 if (flag_dates+flag_country+flag_month+flag_year) == 4:
-                    break
+                    break  
         else:
             print("error")
 
         if (flag_dates+flag_country+flag_month+flag_year) >= 3:
             with open("output.txt", "a") as file:
-                file.write(combinekey+","+savestartnumber+"-"+saveendnumber+","+savemonth+","+saveyear+","+savecountry+","+savehref+"\n")
+                file.write(str(combinekey)+","+str(savestartnumber)+"-"+str(saveendnumber)+","+str(savemonth)+","+str(saveyear)+","+str(savecountry)+","+str(savehref)+"\n")
             print("檔案寫入完成.")
